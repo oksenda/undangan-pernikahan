@@ -1,60 +1,101 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
+import { Container, Carousel, Row, Col, Image } from "react-bootstrap";
 
 interface GallerySectionProps {
-  images: string[]
+  images: string[];
 }
 
 export const GallerySection: React.FC<GallerySectionProps> = ({ images }) => {
-  return (
-    <div style={{ 
-      width: '100%', 
-      padding: '40px 0', // Padding atas bawah saja
-      background: 'rgba(0,0,0,0.8)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
-      <h2 style={{
-        color: '#D4AF37',
-        fontFamily: 'serif',
-        fontSize: '1.8em',
-        textAlign: 'center',
-        marginBottom: '30px'
-      }}>
-        Galeri Pasangan
-      </h2>
+  const topImages = images.slice(0, 3);
+  const groupedImages = [];
+  for (let i = 0; i < images.length; i += 3) {
+    groupedImages.push(images.slice(i, i + 3));
+  }
 
-      {/* Container Utama: Membatasi lebar agar tidak mentok pinggir HP */}
-      <div style={{
-        width: '90%',        // Memberi jarak 5% kiri dan 5% kanan di HP
-        maxWidth: '1000px',  // Batas lebar maksimal di laptop
-        display: 'grid',
-        /* Perbaikan: minmax diturunkan ke 140px agar muat 2 kolom di HP */
-        gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
-        gap: '15px',         // Jarak antar gambar diperkecil sedikit agar manis
-      }}>
-        {images.map((img, i) => (
-          <div key={i} style={{
-            borderRadius: '15px',
-            overflow: 'hidden',
-            boxShadow: '0 5px 15px rgba(0,0,0,0.5)',
-            aspectRatio: '3/4', // Mengunci rasio gambar agar seragam (seperti portrait HP)
-            background: '#222'
-          }}>
-            <img
-              src={img}
-              alt={`Gallery ${i}`}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover', // Gambar akan memenuhi box tanpa distorsi
-                display: 'block'
-              }}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+  return (
+    <section className="py-5 bg-transparent">
+      <Container>
+        {/* JUDUL */}
+        <div className="text-center mb-5">
+          <h2 className="display-5 fw-bold mb-3" style={{ color: "#D4AF37", fontFamily: "serif" }}>
+            Galeri Momen
+          </h2>
+          <p className="fst-italic text-white opacity-75 mx-auto" style={{ maxWidth: "600px" }}>
+            "Cinta tidak terlihat dengan mata, tetapi dengan hati."
+          </p>
+        </div>
+
+        {/* --- CAROUSEL ATAS (FADE) --- */}
+        <div className="mb-5 shadow-lg rounded-4 overflow-hidden border border-white border-opacity-10">
+          <Carousel fade interval={2000} indicators={false}>
+            {topImages.map((img, i) => (
+              <Carousel.Item key={i} style={{ height: "450px" }}>
+                <Image
+                  src={img}
+                  className="d-block w-100 h-100"
+                  style={{ objectFit: "cover" }}
+                  alt="Top Gallery"
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
+
+        {/* --- CAROUSEL BAWAH (MULTI-ITEM 3 GAMBAR) --- */}
+        <div className="mt-5">
+          <Carousel 
+            interval={2500} // Kecepatan otomatis berjalan
+            indicators={true}
+            controls={true}
+            pause="hover" // Akan berhenti sebentar jika kursor di atasnya
+          >
+            {groupedImages.map((group, idx) => (
+              <Carousel.Item key={idx}>
+                <Row className="px-5 g-3">
+                  {group.map((img, i) => (
+                    <Col xs={4} key={i}>
+                      <div 
+                        className="bg-white p-1 p-md-2 shadow-sm rounded-3"
+                        style={{ border: "1px solid rgba(212,175,55,0.2)" }}
+                      >
+                        <Image
+                          src={img}
+                          className="w-100 rounded-2 shadow-sm"
+                          style={{ 
+                            aspectRatio: "3/4", 
+                            objectFit: "cover",
+                            display: "block"
+                          }}
+                          alt={`Gallery group ${idx} item ${i}`}
+                        />
+                      </div>
+                    </Col>
+                  ))}
+                  {/* Fallback jika dalam 1 grup kurang dari 3 gambar agar layout tidak berantakan */}
+                  {group.length < 3 && Array(3 - group.length).fill(null).map((_, emptyIdx) => (
+                    <Col xs={4} key={`empty-${emptyIdx}`} />
+                  ))}
+                </Row>
+              </Carousel.Item>
+            ))}
+          </Carousel>
+        </div>
+      </Container>
+
+      {/* Custom CSS agar tombol navigasi terlihat jelas di atas background gelap */}
+      <style jsx global>{`
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+          background-color: #D4AF37;
+          border-radius: 50%;
+          padding: 15px;
+          background-size: 50%;
+        }
+        .carousel-indicators [data-bs-target] {
+          background-color: #D4AF37;
+        }
+      `}</style>
+    </section>
+  );
+};

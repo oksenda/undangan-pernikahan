@@ -1,10 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 :root {
   --minang-red: #800000;
   --minang-gold: #D4AF37;
+  --glass-bg: rgba(0, 0, 0, 0.5);
 }
 
 body {
