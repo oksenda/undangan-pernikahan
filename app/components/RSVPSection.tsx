@@ -107,13 +107,20 @@ export const RSVPSection: React.FC = () => {
                   />
                 </Form.Group>
 
-                <Button 
-                  type="submit" disabled={loading}
-                  className="w-100 py-2 border-0 fw-bold" 
-                  style={{ background: "#D4AF37", color: "black", borderRadius: "15px" }}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="btn w-100 py-2 border-0 fw-bold"
+                  style={{ 
+                    background: "#D4AF37", 
+                    color: "black", 
+                    borderRadius: "15px",
+                    cursor: loading ? "not-allowed" : "pointer", // Tambahan untuk UX saat loading
+                    opacity: loading ? 0.7 : 1
+                  }}
                 >
                   {loading ? "Sabar ya..." : "Kirim Ucapan"}
-                </Button>
+                </button>
               </Form>
             </Card>
           </Col>

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card} from "react-bootstrap";
+import { GoogleMapsButton } from "./GoogleMapsButtonProps ";
 
 export const LocationSection: React.FC = () => {
   return (
@@ -56,26 +57,7 @@ export const LocationSection: React.FC = () => {
               <p className="opacity-75 mb-4" style={{ fontSize: '0.95rem' }}>
                 Kec. Pasaman, Kabupaten Pasaman Barat, Sumatera Barat
               </p>
-
-              {/* Tombol dengan komponen Button React Bootstrap */}
-              <Button 
-                href="https://www.google.com/maps?q=0.1171486950210941, 99.88443319856763" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                variant="outline-warning"
-                className="px-4 py-2"
-                style={{
-                  backgroundColor: '#D4AF37',
-                  color: 'black',
-                  borderRadius: '50px',
-                  fontWeight: 'bold',
-                  border: 'none',
-                  fontSize: '0.85rem',
-                  letterSpacing: '1px'
-                }}
-              >
-                BUKA DI GOOGLE MAPS
-              </Button>
+              <GoogleMapsButton url="https://www.google.com/maps?q=0.1171486950210941,99.88443319856763" />
             </div>
           </Card.Body>
         </Card>

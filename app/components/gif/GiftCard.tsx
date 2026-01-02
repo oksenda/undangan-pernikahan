@@ -1,7 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { Copy, Check, QrCode } from "lucide-react";
-import { Card, Button, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useState } from "react";
+import { Copy, Check } from "lucide-react";
+import { Card,OverlayTrigger,Tooltip} from "react-bootstrap";
+import { CopyButton } from "../CopyButton";
+import { QrisButton } from "../QrisButtonProps ";
 
 export type GiftCardVariant = "dark" | "warning" | "danger" | "primary";
 
@@ -99,31 +101,10 @@ export default function GiftCard({
                 placement="top"
                 overlay={<Tooltip id="copy-tooltip">{copied ? "Copied!" : "Copy"}</Tooltip>}
               >
-                <Button
-                  onClick={handleCopy}
-                  variant={copied ? "success" : "outline-light"}
-                  className="rounded-circle p-0 d-flex align-items-center justify-content-center border-opacity-50"
-                  style={{ width: "32px", height: "32px" }}
-                >
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
-                </Button>
+                <CopyButton copied={copied} onClick={handleCopy} />
               </OverlayTrigger>
 
-              {qris && (
-                <OverlayTrigger
-                  placement="top"
-                  overlay={<Tooltip id="qris-tooltip">QRIS</Tooltip>}
-                >
-                  <Button
-                    onClick={() => window.open(qris, "_blank")}
-                    variant="outline-light"
-                    className="rounded-circle p-0 d-flex align-items-center justify-content-center border-opacity-50"
-                    style={{ width: "32px", height: "32px" }}
-                  >
-                    <QrCode size={14} />
-                  </Button>
-                </OverlayTrigger>
-              )}
+              {qris && <QrisButton qris={qris} />}
             </div>
           </div>
         </Card.Body>

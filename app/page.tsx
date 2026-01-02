@@ -77,21 +77,22 @@ export default function HomePage() {
           {guestName}
         </h2>
         
-        <Button 
-          onClick={() => setIsOpen(true)}
-          className="px-5 py-2 border-0 shadow-lg"
-          style={{
-            background: "linear-gradient(45deg, #D4AF37, #F9E498)",
-            color: "black",
-            borderRadius: "50px",
-            fontWeight: "bold",
-            fontSize: "1rem",
-            letterSpacing: "1px",
-            transition: "all 0.3s ease"
-          }}
-        >
-          <i className="bi bi-envelope-open-fill me-2"></i> Buka Undangan
-        </Button>
+          <button
+            type="button"
+            onClick={() => setIsOpen(true)}
+            className="btn px-5 py-2 border-0 shadow-lg"
+            style={{
+              background: "linear-gradient(45deg, #D4AF37, #F9E498)",
+              color: "black",
+              borderRadius: "50px",
+              fontWeight: "bold",
+              fontSize: "1rem",
+              letterSpacing: "1px",
+              transition: "all 0.3s ease"
+            }}
+          >
+            <i className="bi bi-envelope-open-fill me-2"></i> Buka Undangan
+          </button>
       </div>
 
       {/* Ornamen Bawah */}
