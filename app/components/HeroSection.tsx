@@ -7,8 +7,6 @@ interface HeroSectionProps {
   guestName: string;
   weddingDate?: string;
   cardImages?: string[];
-  pria?: object;
-  wanita?: object;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
