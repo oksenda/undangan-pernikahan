@@ -7,14 +7,14 @@ interface HeroSectionProps {
   guestName: string;
   weddingDate?: string;
   cardImages?: string[];
+  pria?: object;
+  wanita?: object;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   guestName,
   weddingDate = weddingData.acara.time,
-  pria = weddingData.pengantin.pria,
-  wanita = weddingData.pengantin.wanita,
-  cardImages = weddingData.assets.cardImages,
+  cardImages = weddingData.assets.cardImages
 }) => {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0 });
     const eventDate = new Date(weddingDate).toLocaleDateString("id-ID", {
@@ -24,6 +24,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     day: "numeric",
   });
 
+    const pria = weddingData.pengantin.pria;
+  const wanita = weddingData.pengantin.wanita;
   useEffect(() => {
     const target = new Date(weddingDate).getTime();
     const timer = setInterval(() => {
