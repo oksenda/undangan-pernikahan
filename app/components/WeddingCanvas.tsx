@@ -2,7 +2,6 @@
 import React, { Suspense, useMemo } from "react"
 import { Canvas } from "@react-three/fiber"
 import { Environment, PerspectiveCamera, ScrollControls, Scroll } from "@react-three/drei"
-import { WeddingRings } from "../three/WeddingRings"
 import { WeddingRingsScroll } from "../three/WeddingRingScroll"
 import { HeroSection } from "./HeroSection"
 import { GreetingSection } from "./GreetingSectionProps"
@@ -13,10 +12,9 @@ import { WeddingTimeSection } from "./WeddingTimeSection"
 
 interface WeddingCanvasProps {
   guestName: string
-  isOpen: boolean
 }
 
-export const WeddingCanvas: React.FC<WeddingCanvasProps> = ({ guestName, isOpen }) => {
+const WeddingCanvas: React.FC<WeddingCanvasProps> = ({ guestName }) => {
   const galleryImages = useMemo(
     () => [
       "/assets/asset1.jpeg",
@@ -35,30 +33,23 @@ export const WeddingCanvas: React.FC<WeddingCanvasProps> = ({ guestName, isOpen 
 
       <Suspense fallback={null}>
         <Environment preset="city" />
-
-        {/* Wedding Rings selalu ada */}
-        <WeddingRings name1="Kiki" name2="Nia" />
-
-        {/* ScrollControls selalu ada, tapi isi conditional */}
         <ScrollControls pages={6} damping={0.2}>
-          {isOpen && <WeddingRings name1="Kiki" name2="Nia" />}
-          <Scroll html style={{ width: "100%" }}>
-            {isOpen && (
-              <>
-                <HeroSection guestName={guestName} />
-                 <GreetingSection guestName={guestName} />
-                <WeddingTimeSection date="1 Januari 2026" time="10:00 WIB" />
-                <LocationSection />
-                 <GallerySection images={galleryImages} />
-                <FamilySection
-                  title="Keluarga Besar"
-                  members={["Ayah: Budi", "Ibu: Siti", "Kakak: Rina", "Adik: Riko"]}
-                />
-              </>
-            )}
+          <WeddingRingsScroll name1="Kiki" name2="Nia" />
+          <Scroll html style={{ width: "100%", height: "100%", top: 0, left: 0, pointerEvents: "auto" }}>
+            <HeroSection guestName={guestName} />
+            <GreetingSection guestName={guestName} />
+            <WeddingTimeSection date="1 Januari 2026" time="10:00 WIB" />
+            <LocationSection />
+            <GallerySection images={galleryImages} />
+            <FamilySection
+              title="Keluarga Besar"
+              members={["Ayah: Budi", "Ibu: Siti", "Kakak: Rina", "Adik: Riko"]}
+            />
           </Scroll>
         </ScrollControls>
       </Suspense>
     </Canvas>
   )
 }
+
+export default WeddingCanvas
